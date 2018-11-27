@@ -7,7 +7,7 @@ class RoomList extends Component {
             rooms: []
         }; 
 
-        this.roomsRef = this.props.firebase.database().ref('rooms');
+        this.roomsRef = this.props.firebase.database().ref('rooms'); // firebase reference
 
     } // constructor
 
@@ -27,17 +27,38 @@ class RoomList extends Component {
         
     }
 
+
+    // createRoom method
+    createRoom(e) {
+        if(e) e.preventDefault();
+        const newRoomName = this.refs.roomName.value;
+        this.roomsRef.push({
+            name: newRoomName
+        })
+    }
+
+
     render() {
         return (
             <div>
                 <h1>Available Rooms:</h1>
                 {this.state.rooms.map( (room, i) => 
                 <div>
-                    <h4 className="room-name" key={i}>
-                        {(room.name).toUpperCase()}
+                    <h4 className="room-name" key={i.toString()}>
+                        {room.name}
                     </h4>
                 </div>
                 )}
+                <div>
+                    <form onSubmit={(e) => this.createRoom(e)}>
+                        <fieldset>
+                            <legend>Create a new chat room:</legend>
+                            <input placeholder="type a new room name" ref="roomName"/>
+                            <br /><br />
+                            <input type="submit" value="Create Room" />
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         );
     }
