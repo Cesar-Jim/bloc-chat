@@ -4,8 +4,7 @@ class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rooms: [],
-      name: ""
+      rooms: []
     };
 
     this.roomsRef = this.props.firebase.database().ref("rooms"); // firebase reference
@@ -41,9 +40,7 @@ class RoomList extends Component {
             <p
               className="room-name"
               key={i.toString()}
-              onClick={e =>
-                this.props.handleRoomClick(this.state.rooms.name, e)
-              }
+              onClick={e => this.props.handleRoomClick(room.name, e)}
             >
               {room.name}
             </p>

@@ -26,7 +26,9 @@ class App extends Component {
   // handleRoomClick method
   handleRoomClick(theRoom, e) {
     if (e) e.preventDefault();
-    console.log(`${theRoom} was clicked!`);
+    this.setState({
+      activeRoom: `${theRoom}`
+    });
   }
 
   render() {
@@ -40,7 +42,7 @@ class App extends Component {
           />
         </div>
         <div className="active-room">
-          <h1>Active room:</h1>
+          <h1>Active room: {this.state.activeRoom}</h1>
         </div>
         <div className="message-list">
           <h3>MESSAGE LIST:</h3>
