@@ -10,6 +10,7 @@ class RoomList extends Component {
     this.roomsRef = this.props.firebase.database().ref("rooms"); // firebase reference
   } // constructor
 
+
   //componentDidMount method
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
@@ -22,28 +23,34 @@ class RoomList extends Component {
     });
   }
 
+
   // createRoom method
   createRoom(e) {
     if (e) e.preventDefault();
     const newRoomName = this.refs.roomName.value;
+
     this.roomsRef.push({
       name: newRoomName
     });
+
+    this.refs.roomName.value = ""; // clearing the input field after room was created.
   }
+
 
   render() {
     return (
       <div>
         <h2>Available Rooms:</h2>
-        {this.state.rooms.map((room, i) => (
+        {this.state.rooms.map((room, index) => (
           <div>
             <p
               className="room-name"
-              key={i.toString()}
-              onClick={e => this.props.handleRoomClick(room.name, e)}
+              key={index.toString()}
+              onClick={e => this.props.handleRoomClick(room.name, room.key, e)}
             >
-              {room.name}
+              <strong>{room.name}</strong>
             </p>
+
           </div>
         ))}
         <div className="room-creation">
