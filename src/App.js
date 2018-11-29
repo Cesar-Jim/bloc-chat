@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
+import User from "./components/User";
 import * as firebase from "firebase";
 
 // Initialize Firebase
@@ -20,7 +21,8 @@ class App extends Component {
     super(props);
     this.state = {
       activeRoomName: "",
-      activeRoomId: ""
+      activeRoomId: "",
+      user: "Guest"
     };
   } // constructor
 
@@ -35,6 +37,27 @@ class App extends Component {
   }
 
 
+  // setUser method
+  handleSetUser(user) {
+
+    //console.log(`Inside handleSetUser --> User name: ${userName}`);
+
+    if (user === null) {
+      this.setState({
+        user: "Guest"
+      })
+    } else {
+      const userName = user.displayName;
+
+      this.setState({
+        user: `${userName}`
+      })
+    }
+
+
+  }
+
+
   render() {
     return (
       <div>
@@ -46,12 +69,19 @@ class App extends Component {
           />
         </div>
         <div className="active-room">
-          <h1>Active room: {this.state.activeRoomName}</h1>
+          <h3>Active room: {this.state.activeRoomName}</h3>
+          <h3>Username: {this.state.user}</h3>
         </div>
         <div className="message-list">
           <MessageList
             firebase={firebase}
             activeRoomId={this.state.activeRoomId}
+          />
+        </div>
+        <div>
+          <User
+            firebase={firebase}
+            setUser={user => this.handleSetUser(user)}
           />
         </div>
       </div>

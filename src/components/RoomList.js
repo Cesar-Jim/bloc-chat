@@ -40,7 +40,7 @@ class RoomList extends Component {
   render() {
     return (
       <div>
-        <h2>Available Rooms:</h2>
+        <h1>Available Rooms:</h1>
         {this.state.rooms.map((room, index) => (
           <div>
             <p
