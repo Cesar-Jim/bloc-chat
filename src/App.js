@@ -20,8 +20,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeRoomName: "",
-      activeRoomId: "",
+      activeRoomName: "room1",
+      activeRoomId: "1:",
       user: "Guest"
     };
   } // constructor
@@ -53,8 +53,14 @@ class App extends Component {
         user: `${userName}`
       })
     }
+  }
 
 
+  // handleSendMessage method
+  handleSendMessage(newMessage, e) {
+    if (e) e.preventDefault();
+
+    console.log(`A new message was sent by ${this.state.user}!`);
   }
 
 
@@ -76,6 +82,7 @@ class App extends Component {
           <MessageList
             firebase={firebase}
             activeRoomId={this.state.activeRoomId}
+            username={this.state.user}
           />
         </div>
         <div>
@@ -84,6 +91,7 @@ class App extends Component {
             setUser={user => this.handleSetUser(user)}
           />
         </div>
+
       </div>
     );
   }

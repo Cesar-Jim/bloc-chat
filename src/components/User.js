@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class User extends Component {
-   constructor(props) {
-      super(props);
-   }   // Constructor
 
 
    // handleSignIn method
@@ -32,6 +29,7 @@ class User extends Component {
    render() {
       return (
          <div>
+            <br />
             <button
                className="sign-in-button"
                type="button"
