@@ -40,8 +40,6 @@ class App extends Component {
   // setUser method
   handleSetUser(user) {
 
-    //console.log(`Inside handleSetUser --> User name: ${userName}`);
-
     if (user === null) {
       this.setState({
         user: "Guest"
@@ -54,6 +52,7 @@ class App extends Component {
       })
     }
   }
+<<<<<<< HEAD
 
 
   // // handleSendMessage method
@@ -62,6 +61,8 @@ class App extends Component {
 
   //   console.log(`A new message was sent by ${this.state.user}!`);
   // }
+=======
+>>>>>>> fix-cesar-filter-B
 
 
   render() {
@@ -74,14 +75,22 @@ class App extends Component {
             handleRoomClick={(theRoom, theRoomId, e) => this.handleRoomClick(theRoom, theRoomId, e)}
           />
         </div>
+        <div className="authentication">
+          <User
+            firebase={firebase}
+            setUser={user => this.handleSetUser(user)}
+          />
+        </div>
         <div className="active-room">
-          <h3>Active room: {this.state.activeRoomName}</h3>
-          <h3>Username: {this.state.user}</h3>
+          <br />
+          <p>Active room: <strong>{this.state.activeRoomName}</strong></p>
+          <p>Username: <strong>{this.state.user}</strong></p>
         </div>
         <div className="message-list">
           <MessageList
             firebase={firebase}
             activeRoomId={this.state.activeRoomId}
+<<<<<<< HEAD
             username={this.state.user}
           />
         </div>
@@ -89,6 +98,9 @@ class App extends Component {
           <User
             firebase={firebase}
             setUser={user => this.handleSetUser(user)}
+=======
+            user={this.state.user}
+>>>>>>> fix-cesar-filter-B
           />
         </div>
 
