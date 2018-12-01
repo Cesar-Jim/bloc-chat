@@ -10,7 +10,7 @@ class MessageList extends Component {
          newMessage: false,
          message: {
             content: null,
-            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            startedAt: null,
             roomId: null,
             username: null
          }
@@ -37,11 +37,6 @@ class MessageList extends Component {
    componentDidUpdate() {
 
       if (this.state.newMessage) {
-         // console.log(prevProps);
-         // console.log(`User: ${this.props.user} / Message: ${this.state.message.content} / RoomID: ${this.props.activeRoomId} / CreatedAt: ${this.state.message.createdAt}`);
-
-         const formattedTime = this.state.message.createdAt;
-         console.log(formattedTime.toJ);
 
          this.messagesRef.push(this.state.message);
 
@@ -49,6 +44,8 @@ class MessageList extends Component {
             newMessage: false
          })
       }
+
+      console.log(this.state.message.startedAt);
 
    }
 
@@ -59,15 +56,19 @@ class MessageList extends Component {
 
       if (message !== "") {
 
+
+
          this.setState({
             newMessage: true,
             message: {
                content: message,
                roomId: activeRoomId,
                username: user,
-               createdAt: firebase.database.ServerValue.TIMESTAMP,
+               startedAt: firebase.database.ServerValue.TIMESTAMP
             }
          });
+
+
 
          this.refs.newMessage.value = "";
       }
@@ -86,7 +87,7 @@ class MessageList extends Component {
                   <div className="message-list" key={index}>
                      <p><strong>{message.username}</strong></p>
                      <p>{message.content}</p>
-                     <p><em>Sent: {message.createdAt}</em></p>
+                     <p><em>Sent: {message.startedAt}</em></p>
                      <p>- - - - - - - - - - - - - - - - - - - -</p>
                   </div>
                )
