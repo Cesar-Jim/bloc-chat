@@ -25,9 +25,14 @@ class MessageList extends Component {
   }
 
 
+  componentWillUnmount() {
+    this.emptyMessages();
+  }
+
+
+
   // setUpMessageRef method
   setupMessageRef = () => {
-    console.log('Inside setupMessageRef ', this.state);
     if (this.props.activeRoomId) {
       this.messagesRef.orderByChild("roomId").equalTo(this.props.activeRoomId).on("child_added", snapshot => {
 
@@ -38,6 +43,7 @@ class MessageList extends Component {
           messages: this.state.messages.concat(message)
         });
       });
+      console.log(this.state.messages);
     }
 
   }
@@ -45,7 +51,7 @@ class MessageList extends Component {
 
   // componentDidUpdate method
   componentDidUpdate(prevProps) {
-    console.log('Inside componentDidUpdate ', this.state);
+
     if (prevProps.activeRoomId !== this.props.activeRoomId) {
       this.emptyMessages();
       this.setupMessageRef();
@@ -55,7 +61,7 @@ class MessageList extends Component {
 
   // emptyMessages method
   emptyMessages = () => {
-    console.log('Inside emptyMessages ', this.state);
+
     this.setState({
       messages: []
     })
@@ -88,6 +94,7 @@ class MessageList extends Component {
       this.messagesRef.push(newMessage);
       this.refs.newMessage.value = "";   // clear the input field after a message was sent.
     }
+    this.componentDidUpdate();
   }
 
   render() {

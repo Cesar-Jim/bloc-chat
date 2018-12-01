@@ -56,12 +56,12 @@ class App extends Component {
   }
 
 
-  // handleSendMessage method
-  handleSendMessage(newMessage, e) {
-    if (e) e.preventDefault();
+  // // handleSendMessage method
+  // handleSendMessage(newMessage, e) {
+  //   if (e) e.preventDefault();
 
-    console.log(`A new message was sent by ${this.state.user}!`);
-  }
+  //   console.log(`A new message was sent by ${this.state.user}!`);
+  // }
 
 
   render() {
