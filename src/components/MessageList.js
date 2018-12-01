@@ -7,6 +7,7 @@ class MessageList extends Component {
       super(props);
       this.state = {
          messages: [],
+         newMessage: false,
          message: {
             content: null,
             createdAt: firebase.database.ServerValue.TIMESTAMP,
@@ -33,10 +34,22 @@ class MessageList extends Component {
 
 
    // componentDidUpdate lifecycle method
-   componentDidUpdate(prevProps) {
+   componentDidUpdate() {
 
-      console.log(prevProps);
-      console.log(`User: ${this.props.user} / Message: ${this.state.message.content} / RoomID: ${this.props.activeRoomId} / CreatedAt: ${this.state.message.createdAt}`);
+      if (this.state.newMessage) {
+         // console.log(prevProps);
+         // console.log(`User: ${this.props.user} / Message: ${this.state.message.content} / RoomID: ${this.props.activeRoomId} / CreatedAt: ${this.state.message.createdAt}`);
+
+         const formattedTime = this.state.message.createdAt;
+         console.log(formattedTime.toJ);
+
+         this.messagesRef.push(this.state.message);
+
+         this.setState({
+            newMessage: false
+         })
+      }
+
    }
 
 
@@ -45,9 +58,9 @@ class MessageList extends Component {
       if (e) e.preventDefault();
 
       if (message !== "") {
-         //const newMessage = message;
 
          this.setState({
+            newMessage: true,
             message: {
                content: message,
                roomId: activeRoomId,
@@ -97,7 +110,7 @@ class MessageList extends Component {
                   <br />
                </form>
             </div >
-         </div>
+         </div >
       );
    }
 }
