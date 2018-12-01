@@ -45,7 +45,7 @@ class RoomList extends Component {
           <div>
             <p
               className="room-name"
-              key={index.toString()}
+              key={index}
               onClick={e => this.props.handleRoomClick(room.name, room.key, e)}
             >
               <strong>{room.name}</strong>
@@ -57,7 +57,7 @@ class RoomList extends Component {
           <form onSubmit={e => this.createRoom(e)}>
             <fieldset>
               <legend>Create a new chat room:</legend>
-              <input placeholder="type a new room name" ref="roomName" />
+              <input placeholder="type a new room name" ref="roomName" size="35" />
               <br />
               <br />
               <input type="submit" value="New room" />
