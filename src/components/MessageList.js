@@ -45,8 +45,6 @@ class MessageList extends Component {
          })
       }
 
-      console.log(this.state.message.startedAt);
-
    }
 
 
@@ -56,21 +54,30 @@ class MessageList extends Component {
 
       if (message !== "") {
 
+         // this if statement "catches" the seconds value returned by the firebase server,
+         // otherwise it was impossible to retrieve that value
+         if (this.state.messages && this.state.messages[0]) {
+             var date = new Date(this.state.messages[0].startedAt);
+             var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
+            console.log(this.state.messages[0]);
+          }
 
-         this.setState({
+          this.setState({
             newMessage: true,
             message: {
                content: message,
                roomId: activeRoomId,
                username: user,
-               startedAt: firebase.database.ServerValue.TIMESTAMP
+               startedAt: `${time}`
             }
          });
 
-
-
          this.refs.newMessage.value = "";
+
+         
+
+         
       }
    }
 
