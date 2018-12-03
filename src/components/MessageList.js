@@ -10,7 +10,7 @@ class MessageList extends Component {
          newMessage: false,
          message: {
             content: null,
-            startedAt: `${new Date()}`,
+            startedAt: null,
             roomId: null,
             username: null
          }
