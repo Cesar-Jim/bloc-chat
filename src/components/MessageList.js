@@ -10,13 +10,14 @@ class MessageList extends Component {
          newMessage: false,
          message: {
             content: null,
-            startedAt: null,
+            startedAt: `${new Date()}`,
             roomId: null,
             username: null
          }
       };
 
       this.messagesRef = this.props.firebase.database().ref("Messages");   // firebase reference to messages
+
    } // constructor
 
 
@@ -26,59 +27,51 @@ class MessageList extends Component {
          const message = snapshot.val();
 
          message.key = snapshot.key;
+
          this.setState({
             messages: this.state.messages.concat(message)
          });
+
       });
    }
 
 
    // componentDidUpdate lifecycle method
-   componentDidUpdate() {
+   componentDidUpdate(prevState) {
 
       if (this.state.newMessage) {
 
          this.messagesRef.push(this.state.message);
-
          this.setState({
             newMessage: false
          })
+
       }
 
    }
 
 
-   // handleMessageCreation method
-   handleMessageCreation(e, message, activeRoomId, user) {
+   // createMessage method
+   createMessage(e, message, activeRoomId, user) {
       if (e) e.preventDefault();
 
       if (message !== "") {
 
-         // this if statement "catches" the seconds value returned by the firebase server,
-         // otherwise it was impossible to retrieve that value
-         if (this.state.messages && this.state.messages[0]) {
-             var date = new Date(this.state.messages[0].startedAt);
-             var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+         var d = new Date();
 
-            console.log(this.state.messages[0]);
-          }
-
-          this.setState({
+         this.setState({
             newMessage: true,
             message: {
                content: message,
                roomId: activeRoomId,
                username: user,
-               startedAt: `${time}`
+               startedAt: `${d.getMonth() + 1}/${d.getDay()+2}/${d.getFullYear()} @ ${d.getHours()}:${d.getMinutes()}`
             }
          });
 
          this.refs.newMessage.value = "";
-
-         
-
-         
       }
+
    }
 
 
@@ -102,7 +95,7 @@ class MessageList extends Component {
             </div>
             <div className="message-creation">
                <form onSubmit={e =>
-                  this.handleMessageCreation(
+                  this.createMessage(
                      e,
                      this.refs.newMessage.value,
                      this.props.activeRoomId,
